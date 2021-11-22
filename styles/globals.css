@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+
+body {
+  background-color: #fcfcfc;
+  font-family: 'Assistant', sans-serif;
+  direction: rtl;
+}
+
+.hide {
+  display: none;
+}
+
+.website-content {
+  padding-top: 80px;
+}
+
+/* Scrollbar */
+:root {
+  --scroll-bar-size: 10px;
+  --scroll-bar-thumb-background-color: rgba(0, 0, 0, 0.2);
+  --scroll-bar-thumb-background-color-active: rgba(0, 0, 0, 0.5);
+}
+::-webkit-scrollbar {
+  width: var(--scroll-bar-size);
+  height: var(--scroll-bar-size);
+  background: 0 0;
+  cursor: pointer;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-bar-thumb-background-color);
+  border-radius: var(--scroll-bar-size);
+  border-color: transparent;
+  border-style: solid;
+  border-width: calc(var(--scroll-bar-size) / 3);
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--scroll-bar-thumb-background-color-active);
+}
+::-webkit-scrollbar-thumb:active,
+::-webkit-scrollbar-thumb:hover {
+  border-width: 1px;
+  background-color: var(--scroll-bar-thumb-background-color-active);
+  cursor: pointer;
+}
+
+/* Grid */
+.container {
+  max-width: 1500px;
+  margin: auto;
+  display: flex;
+}
+
+a {
+  text-decoration: none;
+  color: #121212;
+}
+
+.cute-btn {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Hero section */
