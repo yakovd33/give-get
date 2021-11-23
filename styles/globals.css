@@ -17,7 +17,7 @@ body {
 }
 
 .website-content {
-  padding-top: 80px;
+  /* padding-top: 80px; */
 }
 
 /* Scrollbar */
@@ -50,6 +50,11 @@ body {
   cursor: pointer;
 }
 
+.section-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 /* Grid */
 .container {
   max-width: 1500px;
@@ -72,4 +77,208 @@ a {
   cursor: pointer;
 }
 
+/* Header */
+
+/* Footer */
+footer {
+  background-color: #121212;
+  text-align: center;
+  color: #fff;
+  padding: 15px;
+  margin-top: -5px;
+}
+
+footer a {
+  color: #fff;
+}
+
 /* Hero section */
+#hero {
+  background-image: url("/images/hero-bg.png");
+  background-size: cover;
+  padding: 100px 0;
+  min-height: 250px;
+  background-position-y: center;
+  position: relative;
+}
+
+#hero:before {
+  content: "";
+  height: 100%;
+  width: 60%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-image: url("/images/hero-img-left.png");
+  background-position-x: 100%;
+  background-position-y: 80%;
+  z-index: 99;
+}
+
+#hero:after {
+  content: "";
+  height: 130px;
+  background-repeat: no-repeat;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-image: url("/images/hero-bottom.png");
+  background-position-y: 100%;
+  background-size: contain;
+  z-index: 999;
+}
+
+#hero-textuals {
+  padding: 0 50px;
+  color: #fff;
+}
+
+#hero-para {
+  max-width: 400px;
+  margin-top: 10px;
+}
+
+#hero-title {
+  font-size: 2rem;
+}
+
+#hero-actions {
+  margin-top: 30px;
+}
+
+#hero-actions a {
+  color: #fff;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+#hero-action-get {
+  background-color: #7FBA3A;
+  padding: 5px 13px;
+  border-radius: 100px;
+}
+
+/* Give get choice section */
+#give-get-choice-section {
+  text-align: center;
+  margin-top: 50px;
+}
+
+#give-get-choice-section-content {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+#give-get-right > a > div > img, #give-get-left > a > div > img {
+  height: 130px;
+}
+
+#give-get-right > a, #give-get-left > a {
+  display: flex;
+  flex-direction: column;  
+  align-items: center;
+  margin-top: 100px;
+}
+
+#give-get-middle > img {
+  height: 250px;
+}
+
+.give-get-btn {
+  padding: 5px 30px;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 100px;
+  background: linear-gradient(180deg, #28B3D8 0%, #1A9EC0 100%);
+  margin-top: 10px;
+}
+
+.give-get-btn.give {
+  background: linear-gradient(180deg, rgba(127, 201, 41, 0.76) 0%, #80BA3A 100%);
+}
+
+.give-get-choice-p {
+  max-width: 250px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* Stats section */
+#stats-section {
+  margin-top: 100px;
+}
+
+#stat-section-wrap {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+#stats-section-left {
+  padding-right: 20px;
+}
+
+.stats-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.stats-title > span {
+  color:rgba(127, 201, 41, 0.76)
+}
+
+#stats-box {
+  background-image: url("/images/stats-box-bg.png");
+  background-size: cover;
+  padding: 30px 20px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.stat-item:not(:last-child):after {
+  content: "";
+  background-image: url("/images/arrow-down.png");
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-top: 5px;
+  transform: translateX(-50%);
+  height: 15px;
+  width: 15px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.stat-item .num {
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  display: inline-block;
+  background-color:rgb(127, 201, 41);
+  border-radius: 50%;
+  text-align: center;
+  color: #fff;
+  margin-left: 10px;
+}
+
+.stat-item .text {
+  font-weight: bold;
+  max-width: 200px;
+  display: inline-block;
+}
+
+/* Become a partnet section */
+#become-partnet-section img {
+  width: 100%;
+  margin-top: 50px;
+}
