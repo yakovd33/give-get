@@ -1,89 +1,140 @@
+import React, { useState } from 'react';
 import SignupHero from "../components/SignupHero";
+import ApiHelper from '../helpers/ApiHelper';
 
 const GetterSignup = () => {
-	return (
-		<>
-			<SignupHero />
+    const needs = [
+		'בחירת תואר',
+		'בחירת קורס',
+		'בחירת מקום עבודה'
+	];
 
-			<div className="container">
-				<form id="signup-form">
-					<div id="signup-title" className="get">
+    const purposes = [
+        'בחירת תואר',
+        'בחירת קורס',
+        'בחירת מקום עבודה'
+    ]
+
+    const fields = [
+        'הנדסת חשמל',
+        'הנדסת תוכנה',
+        'רפואה',
+        'משפטים',
+    ]
+
+    const [ need, setNeeds ] = useState(
+		new Array(needs.length).fill(false)
+	);
+
+	const [ purpose, setPurpose ] = useState('');
+	const [ field, setField ] = useState('');
+
+    // General fields
+    const [ fullname, setFullname ] = useState('');
+    const [ email, setEmail ] = useState('');
+    const [ phone, setPhone ] = useState('');
+    const [ password, setPassword ] = useState('');
+    const [ rePass, setRePass ] = useState('');
+
+    const handleOnChangeNeeds = (position) => {
+        const updatedCheckedState = need.map((item, index) =>
+        index === position ? !item : item
+      );
+  
+      setNeeds(updatedCheckedState);
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        var selected_needs = [];
+
+        for (var i = 0; i < needs.length; i++) {
+            if (need[i]) {
+                selected_needs.push(needs[i])
+            }
+        }
+
+        let final_needs = JSON.stringify(selected_needs);
+
+        // console.log(selected_needs);
+        
+        ApiHelper.post('users/', { fullname, email, phone, password, type: 'getter', needs: final_needs, purpose, field }, (res) => {
+            console.log(res);
+        });
+    }
+
+    return (
+        <>
+            <SignupHero />
+
+            <div className="container">
+                <form id="signup-form" onSubmit={ (e) => handleSubmit(e) }>
+                    <div id="signup-title">
 						שלום <span>Getter</span> השב/י על מספר שאלות:
 					</div>
 
-					<div className="signup-form-question">
-						<div className="question-text">
-							מהו התחום המקצועי שהיית רוצה לקבל עליו ידע מאחרים?
-						</div>
-						<div className="question-guides">
-							ניתן לסמן יותר מתשובה אחת
-						</div>
+                    <div className="signup-form-question">
+                        <div className="question-text">
+                            מהו התחום המקצועי שהיית רוצה לקבל עליו ידע מאחרים?
+                        </div>
+                        <div className="question-guides">
+                            ניתן לסמן יותר מתשובה אחת
+                        </div>
 
-						<div className="question-options">
-							<label htmlFor="" className="question-option">
-								<input type="checkbox" name="" id="" />
-								בחירת תואר
-							</label>
+                        <div className="question-options">
+                            { needs.map((name, index) => (
+                                <label htmlFor="" className="question-option">
+                                    <input type="checkbox" value={ name } name="" id="" onChange={() => handleOnChangeNeeds(index) }/>
+                                    { name }
+                                </label>
+							))}
+                        </div>
+                    </div>
 
-							<label htmlFor="" className="question-option">
-								<input type="checkbox" name="" id="" />
-								בחירת קורס
-							</label>
+                    <div className="signup-form-question">
+                        <div className="question-text">
+                            לאיזו מטרה היית רוצה לקבל ידע על תחום זה?
+                        </div>
 
-							<label htmlFor="" className="question-option">
-								<input type="checkbox" name="" id="" />
-								בחירת מקום עבודה
-							</label>
-						</div>
-					</div>
+                        <div className="question-options">
+                            { needs.map((name, index) => (
+                                <label htmlFor="" className="question-option">
+                                    <input type="radio" name="purpose" onChange={ () => setPurpose(name) } id="" />
+                                    { name }
+                                </label>
+                            ))}
 
-					<div className="signup-form-question">
-						<div className="question-text">
-							לאיזו מטרה היית רוצה לקבל ידע על תחום זה?
-						</div>
+                            <label htmlFor="" className="question-option">
+                                <input type="radio" name="purpose" id="" />
+                                אחר
+                                <input type="text" className="expend-answer" />
+                            </label>
+                        </div>
+                    </div>
 
-						<div className="question-options">
-							<label htmlFor="" className="question-option">
-								<input type="checkbox" name="" id="" />
-								בחירת תואר
-							</label>
+                    <div className="signup-form-question">
+                        <div className="question-text">
+                            מהו תחום העניין שהיית רוצה לקבל בו ידע ממומחה?
+                        </div>
 
-							<label htmlFor="" className="question-option">
-								<input type="checkbox" name="" id="" />
-								בחירת קורס
-							</label>
+                        <div>
+                            <select name="" id="" onChange={ (e) => setField(e.target.value) }>
+                                <option value="">
+                                    בחר/י תחום שמעניין אותך
+                                </option>
 
-							<label htmlFor="" className="question-option">
-								<input type="checkbox" name="" id="" />
-								בחירת מקום עבודה
-							</label>
+                                { fields.map((name) => (
+                                    <option value={ name }>{ name }</option>
+                                )) }
+                            </select>
+                        </div>
+                    </div>
 
-							<label htmlFor="" className="question-option">
-								<input type="checkbox" name="" id="" />
-								אחר
-								<input type="text" className="expend-answer" />
-							</label>
-						</div>
-					</div>
-
-					<div className="signup-form-question">
-						<div className="question-text">
-							מהו תחום העניין שהיית רוצה לקבל בו ידע ממומחה?
-						</div>
-
-						<div>
-							<select name="" id="">
-								<option value="">
-									בחר/י תחום שמעניין אותך
-								</option>
-							</select>
-						</div>
-					</div>
-
-					<div id="getter-signup-details">
+                    <div id="giver-signup-details">
 						<div className="getter-signup-row">
 							<div className="getter-signup-col">
-								<input type="text" placeholder="שם מלא" />
+								<input type="text" value={ fullname } onChange={ (e) => setFullname(e.target.value) } placeholder="שם מלא" />
 							</div>
 
 							<div className="getter-signup-col">
@@ -93,21 +144,21 @@ const GetterSignup = () => {
 
 						<div className="getter-signup-row">
 							<div className="getter-signup-col">
-								<input type="text" placeholder="כתובת אימייל" />
+								<input type="text" value={ email } onChange={ (e) => setEmail(e.target.value) } placeholder="כתובת אימייל" />
 							</div>
 
 							<div className="getter-signup-col">
-								<input type="text" placeholder="מספר טלפון" />
+								<input type="text" value={ phone } onChange={ (e) => setPhone(e.target.value) } placeholder="מספר טלפון" />
 							</div>
 						</div>
 
 						<div className="getter-signup-row">
 							<div className="getter-signup-col">
-								<input type="text" placeholder="סיסמא" />
+								<input type="text" value={ password } onChange={ (e) => setPassword(e.target.value) } placeholder="סיסמא" />
 							</div>
 
 							<div className="getter-signup-col">
-								<input type="text" placeholder="וידוא סיסמא" />
+								<input type="text" value={ rePass } onChange={ (e) => setRePass(e.target.value) } placeholder="וידוא סיסמא" />
 							</div>
 						</div>
 
@@ -126,10 +177,10 @@ const GetterSignup = () => {
 
 						<input type="submit" value="הרשמה" />
 					</div>
-				</form>
-			</div>
-		</>
-	);
-};
-
+                </form>
+            </div>
+        </>
+    );
+}
+ 
 export default GetterSignup;
