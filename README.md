@@ -1,1 +1,1 @@
-# fruits-shop-react
+# NEXT.JS + EXPRESS Web Application
