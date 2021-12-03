@@ -35,6 +35,7 @@ const GetterSignup = () => {
     const [ phone, setPhone ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ rePass, setRePass ] = useState('');
+    const [ feedback, setFeedback ] = useState('');
 
     const handleOnChangeNeeds = (position) => {
         const updatedCheckedState = need.map((item, index) =>
@@ -42,6 +43,13 @@ const GetterSignup = () => {
       );
   
       setNeeds(updatedCheckedState);
+    }
+
+    const handleExpand = (e) => {
+        setPurpose(e.target.value);
+
+        let radio = document.querySelector("input[type='radio'][name='purpose']:checked");
+        radio.checked = false;
     }
 
     const handleSubmit = (e) => {
@@ -57,11 +65,9 @@ const GetterSignup = () => {
 
         let final_needs = JSON.stringify(selected_needs);
 
-        // console.log(selected_needs);
-        
         ApiHelper.post('users/', { fullname, email, phone, password, type: 'getter', needs: final_needs, purpose, field }, (res) => {
-            console.log(res);
-        });
+            setFeedback(res.msg);
+        })
     }
 
     return (
@@ -108,7 +114,7 @@ const GetterSignup = () => {
                             <label htmlFor="" className="question-option">
                                 <input type="radio" name="purpose" id="" />
                                 אחר
-                                <input type="text" className="expend-answer" />
+                                <input type="text" className="expend-answer" onChange={ (e) => handleExpand(e) }/>
                             </label>
                         </div>
                     </div>
@@ -175,7 +181,11 @@ const GetterSignup = () => {
 							</div>
 						</div>
 
-						<input type="submit" value="הרשמה" />
+                        { feedback && <p id="signup-feedback">{ feedback }</p> }
+
+                        <div className="submit-btn-wrap">
+						    <input type="submit" value="הרשמה" />
+                        </div>
 					</div>
                 </form>
             </div>

@@ -405,6 +405,19 @@ footer a {
 	cursor: pointer;
 }
 
+#signup-feedback {
+	margin-top: 10px;
+	margin-bottom: -10px;
+	font-weight: bold;
+	color: #fff;
+	text-align: center;
+}
+
+.submit-btn-wrap {
+	display: flex;
+	justify-content: center;
+}
+
 #tell-more-form-getter {
 	background-color: #fff;
 	padding: 20px;
@@ -541,4 +554,78 @@ footer a {
 .pro-item-left .cute-btn {
 	font-size: 0.7rem;
 	padding: 10px;
+}
+
+#main-signup-hero {
+	width: 100%;
+	height: 350px;
+	background-image: url("/images/signup-hero-bg.png");
+	background-size: cover;
+	background-position: center bottom;
+	position: relative;
+}
+
+#signup-hero-title {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%);
+	color: #fff;
+}
+
+/* Login */
+#login-hero {
+	width: 100%;
+	height: 350px;
+	background-image: url("/images/signup-hero-bg.png");
+	background-size: cover;
+	background-position: center bottom;
+	position: relative;
+}
+
+#login-hero-title {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%);
+	color: #fff;
+}
+
+#login-form {
+	display: flex;
+	flex-direction: column;
+	max-width: 450px;
+	margin: 50px auto;
+}
+
+#login-form input {
+	width: 100%;
+	display: block;
+	margin-top: 10px;
+	border: none;
+	border: 1px solid #ebebeb;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 4px;
+}
+
+#login-form input[type="submit"] {
+	/* background: #; */
+	border: none;
+}
+
+#not-registered-msg {
+	margin-top: 10px;
+	text-align: center;
+}
+
+#not-registered-msg a {
+	color:rgba(127, 201, 41, 1);
+	font-weight: bold;
+}
+
+#login-feedback {
+	margin-top: 5px;
+	font-size: 0.9rem;
+	text-align: center;
 }
