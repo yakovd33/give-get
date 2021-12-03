@@ -9,6 +9,8 @@ export default class ApiHelper {
     }
 
     static getUser () {
-        return JSON.parse(localStorage.getItem("user"));
+        if (typeof window !== 'undefined') {
+            return JSON.parse(localStorage.getItem("user"));
+        }
     }
 }
