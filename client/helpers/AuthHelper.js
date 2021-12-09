@@ -13,4 +13,8 @@ export default class ApiHelper {
             return JSON.parse(localStorage.getItem("user"));
         }
     }
+
+    static logout () {
+        localStorage.removeItem('user');
+    }
 }

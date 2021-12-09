@@ -5,7 +5,7 @@ import AuthHelper from '../helpers/AuthHelper';
 const Signup = () => {
     useEffect(() => {
         if (AuthHelper.isLogged()) {
-            window.location = '/';
+            window.location.href = '/'
         }
     }, []);
 

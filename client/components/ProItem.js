@@ -1,4 +1,7 @@
-const ProItem = () => {
+import React, { useState } from 'react';
+import Link from 'next/link';
+
+const ProItem = ({ id, name, description }) => {
     return ( 
         <div className="pro-item">
             <div className="pro-item-right">
@@ -8,13 +11,13 @@ const ProItem = () => {
             </div>
 
             <div className="pro-item-middle">
-                <div className="name">דניאלה שטיין</div>
-                <div className="description">בוגרת תואר מדעי המחשב, מכללת כנרת. נמצאת לפני עבודה בתחום</div>
+                <div className="name">{ name }</div>
+                <div className="description">{ description }</div>
             </div>
 
             <div className="pro-item-left">
                 <img src="/images/calendar.png" alt="" />
-                <button className="cute-btn">בחר תאריך</button>
+                <Link href={ `meet/${ id }` }><a href={ `meet/${ id }` }><button className="cute-btn">בחר תאריך</button></a></Link>
             </div>
         </div>
      );

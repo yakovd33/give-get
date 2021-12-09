@@ -34,9 +34,10 @@ router.post("/", async (req, res, next) => {
 											let experience = req.body.experience;
 											let hobbies = req.body.hobbies;
 											let questions = req.body.questions;
+											let statusAnswer = req.body.statusAnswer;
 
 											if (needs && status && field && age && experience && hobbies && questions) {
-												await pool.query("INSERT INTO givers (user_id, age, experience, hobbies, questions, needs, status, field) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)", [ lastInsertId, age, experience, hobbies, questions, needs, status, field ]).then((docs) => {
+												await pool.query("INSERT INTO givers (user_id, age, experience, hobbies, questions, needs, status, field, status_answer) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)", [ lastInsertId, age, experience, hobbies, questions, needs, status, field, statusAnswer ]).then((docs) => {
 													// Success
 													res.status(200).json({ msg: "נרשמת בהצלחה. כעת ניתן להתחבר." });
 												});
@@ -109,7 +110,7 @@ router.post('/login/', async (req, res, next) => {
 				);
 
 				user.token = token;
-				response.feedback = 'התחברת בהצלחה.';
+				dback = 'התחברת בהצלחה.';
 				response.success = true;
 				response.user = user;
 			} else {

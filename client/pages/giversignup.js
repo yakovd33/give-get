@@ -19,6 +19,15 @@ const GiverSignup = () => {
         'יועץ לימודים',
     ];
 
+    const status_questions = {
+        'בוגר תואר': 'איזה תואר למדת?',
+        'בוגר קורס': 'איזה קורס למדת?',
+        'סטודנט': 'סטודנט לאיזה תואר?',
+        'עובד בתחום': 'באיזה תחום אתה עובד?',
+        'יועץ קריירה': null,
+        'יועץ לימודים': null
+    };
+
 	const fields = [
         'הנדסת חשמל',
         'הנדסת תוכנה',
@@ -32,6 +41,7 @@ const GiverSignup = () => {
 
 	const [ status, setStatus ] = useState('');
 	const [ field, setField ] = useState('');
+    const [ statusAnswer, setStatusAnswer ] = useState('');
 
 	// General fields
     const [ fullname, setFullname ] = useState('');
@@ -66,7 +76,7 @@ const GiverSignup = () => {
 
         let final_needs = JSON.stringify(selected_needs);
 
-        ApiHelper.post('users/', { fullname, email, phone, password, type: 'giver', needs: final_needs, status, field, hobbies, questions, experience, age }, (res) => {
+        ApiHelper.post('users/', { fullname, email, phone, password, type: 'giver', needs: final_needs, status, field, hobbies, questions, experience, age, statusAnswer }, (res) => {
             setFeedback(res.msg);
 			console.log(res);
         })
@@ -115,6 +125,18 @@ const GiverSignup = () => {
                             ))}
 						</div>
 					</div>
+
+                    { status_questions[status] && (
+                        <div className="signup-form-question">
+                            <div className="question-text">
+                                { status_questions[status] }
+                            </div>
+
+                            <div className="question-options">
+                                <input type="text" value={ statusAnswer } onChange={ (e) => setStatusAnswer(e.target.value) } />
+                            </div>
+                        </div>
+                    ) }
 
 					<div className="signup-form-question">
 						<div className="question-text">
