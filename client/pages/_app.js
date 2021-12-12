@@ -3,23 +3,46 @@ import Head from 'next/head'
 import Layout from "../components/Layout";
 import "../styles/globals.css";
 import "../styles/responsive.css";
+import AuthHelper from '../helpers/AuthHelper';
+import { Provider } from 'react-redux';
+import chatStore from '../store/chatStore';
+import { getMessage, setSocket } from '../actions';
+const io = require("socket.io-client");
 
 function MyApp({ Component, pageProps }) {
-	const [ cartItems, setCartItems ] = useState([]);
-
-    useEffect(() => {
-        if (localStorage.getItem('cart')) {
-            setCartItems(JSON.parse(localStorage.getItem('cart')));
-        }
-    }, []);
-
-	const localizeCart = () => {
-		localStorage.setItem('cart', JSON.stringify(cartItems));
-	}
+	const [ chat, setChat ] = useState([]);
+	const [ socket, setSock ] = useState(null);
 
 	useEffect(() => {
-		localizeCart();
-	}, [ cartItems ]);
+		if (AuthHelper.isLogged()) {
+			if (!socket) {
+				setSock(io.connect('ws://localhost:3333', {
+					reconnectionDelay: 1000,
+					reconnection: true,
+					reconnectionAttemps: 10,
+					transports: ['websocket'],
+					agent: false,
+					upgrade: false,
+					rejectUnauthorized: false
+				}));
+			}
+
+			if (socket) {
+				socket.on("connect", () => {
+					socket.emit('register', {
+						user_id: AuthHelper.getUserId()
+					})
+				});
+
+				socket.on('message', (message) => {
+					console.log(message);
+					chatStore.dispatch(getMessage(message.text, message.from_id, message.fullname))
+				});
+
+				chatStore.dispatch(setSocket(socket));
+			}
+		}
+	}, [ socket ]);
 
 	return (
 		<>
@@ -28,9 +51,11 @@ function MyApp({ Component, pageProps }) {
 				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 			</Head>
 
-			<Layout cartItems={ cartItems } setCartItems={ setCartItems }>
-				<Component { ...pageProps } cartItems={ cartItems } setCartItems={ setCartItems } />
-			</Layout>
+			<Provider store={ chatStore }>
+				<Layout chat={ chat } setChat={ setChat }>
+					<Component { ...pageProps } chat={ chat } setChat={ setChat } />
+				</Layout>
+			</Provider>
 		</>
 	);
 }

@@ -1,4 +1,4 @@
-export default class ApiHelper {
+export default class AuthHelper {
     static isLogged () {
         return (this.getUser());
     }
@@ -16,5 +16,13 @@ export default class ApiHelper {
 
     static logout () {
         localStorage.removeItem('user');
+    }
+
+    static getAccessToken () {
+        return this.getUser().token;
+    }
+
+    static getUserId () {
+        return this.getUser().id;
     }
 }

@@ -17,7 +17,7 @@ body {
 }
 
 .website-content {
-	/* padding-top: 80px; */
+	padding-top: 80px;
 }
 
 /* Scrollbar */
@@ -149,7 +149,7 @@ footer {
 	text-align: center;
 	color: #fff;
 	padding: 15px;
-	margin-top: -5px;
+	margin-top: 10px;
 }
 
 footer a {
@@ -712,3 +712,8 @@ footer a {
 	font-size: 0.9rem;
 	text-align: center;
 }
+
+/* Chat */
+@import 'chat.css';
+
+/* Meeting */

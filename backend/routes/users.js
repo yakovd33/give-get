@@ -128,6 +128,24 @@ router.post('/login/', async (req, res, next) => {
 	res.status(200).json(response);
 });
 
+// Get user details
+router.get('/user/:id', async (req, res, next) => {
+	let user_id = req.params.id;
+
+	if (!user_id) return;
+	
+	let userRow = await pool.query(`SELECT * FROM users WHERE id = ${ user_id }`);
+
+	if (!userRow.rows.length) return;
+
+	const { pass_hashed, ...others } = userRow.rows[0];
+	res.status(200).json(others);
+
+	return;
+
+	res.status(500);
+});
+
 /* GET users listing. */
 // router.get('/', async function(req, res, next) {
 //   const users = await pool.query("SELECT * FROM users", []);
