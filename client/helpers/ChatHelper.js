@@ -1,10 +1,10 @@
 import ApiHelper from './ApiHelper';
 import UsersHelper from './UsersHelper';
 import chatStore from '../store/chatStore';
-import { addUser } from '../actions';
+import { addUser, getChatMessages } from '../actions';
 
 export default class ChatHelper {
-    static isChatboxOpen (chat, user_id) {
+    static isChatboxOpen (user_id) {
         let chatboxes = chatStore.getState().users;
 
         let found = false;
@@ -18,15 +18,20 @@ export default class ChatHelper {
         return found;
     }
 
-    static openChatbox (chat, setChat, user_id, name) {
+    static openChatbox (user_id, name) {
         // Check if chatbox already open
-        if (!this.isChatboxOpen(chat, user_id)) {
+        if (!this.isChatboxOpen(user_id)) {
             chatStore.dispatch(addUser(name, user_id));
+
+            // Get chat messages
+            ApiHelper.get(`chat/chat_messages/${ user_id }`, (messages) => {
+                chatStore.dispatch(getChatMessages(user_id, messages));
+            });
             
             // Add open chatbox to DB
             ApiHelper.post(`chat/open_chatbox/${ user_id }`, (res) => {
                 console.log(res);
-            })
+            });
         } else {
             // Chatbox already open
             console.log('open');

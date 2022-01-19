@@ -1,4 +1,5 @@
 import * as types from "../constants/ActionTypes";
+import ApiHelper from "../helpers/ApiHelper";
 import UsersHelper from "../helpers/UsersHelper";
 
 const users = (state = [], action) => {
@@ -39,20 +40,18 @@ const users = (state = [], action) => {
 					self: ''
 				});
 
-				chatbox1.messages = tmpMessages1;
+				// chatbox1.messages = tmpMessages1;
 			} else {
 				// Open chatbox
 				// TODO: Get the previous messages from API
-				return state.concat([
-					{
-						fullname: action.fullname,
-						user_id: action.user_id,
-						messages: [{
-							text: action.message,
-							self: ''
-						}],
-					},
-				]);
+			}
+
+			return state;
+		case types.GET_CHAT_MESSAGES :
+			let chatbox3 = state.find(cb1 => cb1.user_id == action.user_id);
+            
+			if (chatbox3) {
+				chatbox3.messages = action.messages;
 			}
 
 			return state;

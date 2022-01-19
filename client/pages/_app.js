@@ -10,7 +10,6 @@ import { getMessage, setSocket } from '../actions';
 const io = require("socket.io-client");
 
 function MyApp({ Component, pageProps }) {
-	const [ chat, setChat ] = useState([]);
 	const [ socket, setSock ] = useState(null);
 
 	useEffect(() => {
@@ -52,8 +51,8 @@ function MyApp({ Component, pageProps }) {
 			</Head>
 
 			<Provider store={ chatStore }>
-				<Layout chat={ chat } setChat={ setChat }>
-					<Component { ...pageProps } chat={ chat } setChat={ setChat } />
+				<Layout>
+					<Component { ...pageProps }/>
 				</Layout>
 			</Provider>
 		</>

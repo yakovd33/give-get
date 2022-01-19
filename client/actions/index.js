@@ -31,6 +31,13 @@ export const addUser = (fullname, user_id) => ({
   user_id
 });
 
+export const getChatMessages = (user_id, messages) => ({
+  type: types.GET_CHAT_MESSAGES,
+  id: 0,
+  user_id,
+  messages
+});
+
 export const removeUser = (user_id) => ({
   type: types.REMOVE_USER,
   user_id

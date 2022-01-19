@@ -537,6 +537,30 @@
     display: block;
 }
 
+.chat-options-link {
+    padding: 3px 10px;
+    background: #cdcdcd;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.chatbox-options-links {
+    padding: 10px 0;
+    display: none;
+    transition: 0.3s ease-in-out;
+}
+
+.chat-box:hover .chatbox-options-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.chatbox-options-links-left > span {
+    font-size: 0.85rem;
+}
+
 @media screen and (max-width: 768px) {
     #floating-chat-toggler:after {
         position: relative;

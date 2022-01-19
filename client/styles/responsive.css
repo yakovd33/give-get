@@ -5,5 +5,124 @@
 }
 
 @media screen and (max-width: 768px) {
-    
+    /* Header */
+    #nav-links {
+        display: none;
+    }
+
+    #mobile-nav-toggler {
+        font-size: 1.3rem;
+        display: block;
+        user-select: none;
+    }
+
+    #nav-links-mobile {
+        position: fixed;
+        right: 0;
+        left: 0;
+        top: 70px;
+        display: flex;
+        flex-direction: column;
+        z-index: 9999;
+        background: #fff;
+        padding: 15px 10px;
+    }
+
+    #nav-links-mobile .nav-link {
+        padding: 5px 0;
+    }
+
+    #nav-left {
+        display: none;
+    }
+
+    #nav-right {
+        width: 100%;
+        justify-content: space-between;
+        padding: 0 10px;
+    }
+
+    /* Homepage */
+    #give-get-middle {
+        display: none;
+    }
+
+    #stat-section-wrap {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    #stats-section-left {
+        padding-right: 0;
+    }
+
+    #stats-section-right iframe {
+        width: 100%;
+    }
+
+    #stat-section-wrap > div {
+        width: 100%;
+    }
+
+    #hero {
+        background-position-x: center;
+    }
+
+    #hero:before {
+        display: none;
+    }
+
+    /* Signup */
+    #signup-form {
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+
+    .getter-signup-row {
+        flex-direction: column;
+    }
+
+    .getter-signup-row input {
+        margin: 5px 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .tell-more-getter-row {
+        flex-direction: column;
+    }
+
+    .tell-more-getter-row.grid input {
+        max-width: 100%;
+    }
+
+    /* Find */
+    #filter-items {
+        flex-direction: column;
+    }
+
+    #filter-items .filter-item {
+        width: 100%;
+    }
+
+    .giver-img {
+        height: 80px;
+        width: 80px;
+    }
+
+    .giver-img img {
+        height: 60px;
+    }
+
+    .pro-item-left > img {
+        height: 60px;
+    }
+
+    #pros-list {
+        padding: 0 10px;
+    }
+
+    #filter-title {
+        padding: 0 10px;
+    }
 }

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { BsWhatsapp } from 'react-icons/bs';
-import { FaAngleDown } from 'react-icons/fa';
+import { GiHamburgerMenu } from 'react-icons/gi';
 import Link from 'next/link';
 import AuthHelper from '../helpers/AuthHelper';
 import NotLoggedAuthButtons from './Header/NotLoggedAuthButtons';
 import LoggedAuthButtons from './Header/LoggedAuthButtons';
 
 const Header = () => {
+    const [ showMobileNav, setShowMobileNav ] = useState(false);
+
     return (
         <>
             <div id="header">
@@ -16,7 +16,11 @@ const Header = () => {
                         <div id="nav-wrap">
                             <div id="nav-right">
                                 <div id="nav-logo">
+                                    <Link href="/">
+                                    <a href="/">
                                     GIVE&GET
+                                    </a>
+                                    </Link>
                                 </div>
 
                                 <div id="nav-links">
@@ -25,6 +29,8 @@ const Header = () => {
                                     <Link href="#"><a href="#" className="nav-link">סיפורי הצלחה</a></Link>
                                     <Link href="#"><a href="#" className="nav-link">תקנון</a></Link>
                                 </div>
+
+                                <div id="mobile-nav-toggler" onClick={ () => setShowMobileNav(!showMobileNav) }><GiHamburgerMenu/></div>
                             </div>
 
                             <div id="nav-left">
@@ -37,6 +43,18 @@ const Header = () => {
                     </div>
                 </nav>
             </div>
+            
+            { showMobileNav && <div id="nav-links-mobile">
+                <Link href="#"><a href="#" className="nav-link active">ראשי</a></Link>
+                <Link href="#"><a href="#" className="nav-link">אודות</a></Link>
+                <Link href="#"><a href="#" className="nav-link">סיפורי הצלחה</a></Link>
+                <Link href="#"><a href="#" className="nav-link">תקנון</a></Link>
+                <br />
+                { AuthHelper.isLogged() && <span>
+                    { !AuthHelper.isLogged() && <NotLoggedAuthButtons/>  }
+                    { AuthHelper.isLogged() && <LoggedAuthButtons/>  }
+                </span> }
+            </div> }
         </>
     );
 }

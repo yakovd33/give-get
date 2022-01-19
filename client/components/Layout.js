@@ -4,12 +4,15 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Chat from "./Chat/Chat";
 
-const Layout = ({ children, chat, setChat }) => {
+import AuthHelper from '../helpers/AuthHelper';
+
+const Layout = ({ children }) => {
     return ( 
         <div className="website-content">
             <Header/>
                 { children }
-                <Chat chat={ chat } setChat={ setChat }/>
+
+                { AuthHelper.isLogged() && <Chat/> }
             <Footer/>
         </div>
     );

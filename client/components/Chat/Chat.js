@@ -19,7 +19,7 @@ const Chat = () => {
         // Get open chatboxes from DB
         ApiHelper.get('chat/open_chatboxes', (chat) => {
             chatStore.dispatch(SetChatboxes(chat))
-        })
+        });
     }, []);
     
     return (

@@ -14,6 +14,21 @@ export default class ApiHelper {
             callback(response.data);
         }).catch((error) => {  })
     }
+
+    
+    static async getResult (url, callback){
+        let headers = {};
+
+        if (AuthHelper.isLogged()) {
+            headers.token = AuthHelper.getAccessToken();
+            headers.uid = AuthHelper.getUserId();
+        }
+
+        let result = await axios.get('http://localhost:5000/' + url, { headers: headers });
+
+        return result;
+    }
+    
     
     static post (url, params = {}, callback) {
         let headers = {};
