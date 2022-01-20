@@ -38,7 +38,7 @@ io.on("connection", (socket) => {
 	});
 });
 
-server.listen(3333);
+server.listen(80);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
