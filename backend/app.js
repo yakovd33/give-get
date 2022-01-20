@@ -8,9 +8,12 @@ const logger = require("morgan");
 require("dotenv").config();
 const http = require("http");
 const socketio = require("socket.io");
-const port = process.env.PORT || 5000;
 
+const port = process.env.PORT || 5000;
 const app = express();
+// app.listen(port, function() {
+// 	console.log('Node app is running on port', app.get('port'));
+// });
 
 // Socket.io
 var chatUsers = {};
