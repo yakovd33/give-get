@@ -1,6 +1,9 @@
 import axios from 'axios';
 import AuthHelper from './AuthHelper';
 
+// const API_URL = 'http://localhost:5000/';
+const API_URL = 'https://givegetproject.herokuapp.com/';
+
 export default class ApiHelper {
     static get (url, callback){
         let headers = {};
@@ -10,7 +13,7 @@ export default class ApiHelper {
             headers.uid = AuthHelper.getUserId();
         }
 
-        axios.get('http://localhost:5000/' + url, { headers: headers }).then((response) => {
+        axios.get(API_URL + url, { headers: headers }).then((response) => {
             callback(response.data);
         }).catch((error) => {  })
     }
@@ -24,7 +27,7 @@ export default class ApiHelper {
             headers.uid = AuthHelper.getUserId();
         }
 
-        let result = await axios.get('http://localhost:5000/' + url, { headers: headers });
+        let result = await axios.get(API_URL + url, { headers: headers });
 
         return result;
     }
@@ -38,7 +41,7 @@ export default class ApiHelper {
             headers.uid = AuthHelper.getUserId();
         }
         
-        axios.post('http://localhost:5000/' + url, params, { headers: headers }).then((response) => {
+        axios.post(API_URL + url, params, { headers: headers }).then((response) => {
             callback(response.data);
         }).catch((error) => {  })
     }
@@ -51,7 +54,7 @@ export default class ApiHelper {
             headers.uid = AuthHelper.getUserId();
         }
         
-        axios.delete('http://localhost:5000/' + url, { headers: headers }).then((response) => {
+        axios.delete(API_URL + url, { headers: headers }).then((response) => {
             callback(response.data);
         }).catch((error) => { console.log(error); })
     }
