@@ -10,6 +10,11 @@ const http = require("http");
 const socketio = require("socket.io");
 
 const app = express();
+app.set('port', 80);
+
+app.listen(app.get('port'), function() {
+	console.log('Node app is running on port', app.get('port'));
+});
 
 // Socket.io
 var chatUsers = {};
