@@ -8,6 +8,7 @@ const logger = require("morgan");
 require("dotenv").config();
 const http = require("http");
 const socketio = require("socket.io");
+const port = process.env.PORT || 5000;
 
 const app = express();
 
@@ -38,7 +39,7 @@ io.on("connection", (socket) => {
 	});
 });
 
-// server.listen(3333);
+server.listen(port);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
