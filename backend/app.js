@@ -10,7 +10,7 @@ const http = require("http");
 const socketio = require("socket.io");
 
 const app = express();
-app.set('port', 80);
+// app.set('port', 80);
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
 });
@@ -42,7 +42,7 @@ io.on("connection", (socket) => {
 	});
 });
 
-server.listen(3333);
+// server.listen(3333);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
