@@ -5,6 +5,9 @@
   "scripts": {
     "start": "node app.js"
   },
+  "engines": {
+    "node": "17.1.0"
+  },
   "dependencies": {
     "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
