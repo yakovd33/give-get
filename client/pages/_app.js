@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
 				// 	rejectUnauthorized: false
 				// }));
 
-				setSock(io.connect('ws://givegetproject.herokuapp.com', {
+				setSock(io.connect('wss://givegetproject.herokuapp.com', {
 					reconnectionDelay: 1000,
 					reconnection: true,
 					reconnectionAttemps: 10,
