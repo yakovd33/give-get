@@ -15,7 +15,17 @@ function MyApp({ Component, pageProps }) {
 	useEffect(() => {
 		if (AuthHelper.isLogged()) {
 			if (!socket) {
-				setSock(io.connect('ws://localhost:3333', {
+				// setSock(io.connect('ws://localhost:3333', {
+				// 	reconnectionDelay: 1000,
+				// 	reconnection: true,
+				// 	reconnectionAttemps: 10,
+				// 	transports: ['websocket'],
+				// 	agent: false,
+				// 	upgrade: false,
+				// 	rejectUnauthorized: false
+				// }));
+
+				setSock(io.connect('ws://givegetproject.herokuapp.com', {
 					reconnectionDelay: 1000,
 					reconnection: true,
 					reconnectionAttemps: 10,
