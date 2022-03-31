@@ -186,17 +186,18 @@ footer a {
 
 #hero:after {
 	content: "";
-	height: 130px;
-	background-repeat: no-repeat;
-	width: 100%;
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	left: 0;
-	background-image: url("/images/hero-bottom.png");
-	background-position-y: 100%;
-	background-size: contain;
-	z-index: 999;
+	height: 171px;
+    background-repeat: no-repeat;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-image: url(/images/hero-bottom.png);
+    background-position-x: center;
+    background-position-y: 100%;
+    background-size: cover;
+    z-index: 999;
 }
 
 #hero-textuals {
@@ -276,7 +277,7 @@ footer a {
 }
 
 .give-get-choice-p {
-	max-width: 250px;
+	max-width: 280px;
 	font-weight: bold;
 	text-align: center;
 	margin-top: 15px;
@@ -462,6 +463,10 @@ footer a {
 	border-radius: 4px;
 	margin-left: 10px;
 	margin-top: 5px;
+}
+
+#getter-has-to-give-question .answer button.active {
+	border: 1px solid #444;
 }
 
 #signup-form input[type="submit"] {

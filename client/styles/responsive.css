@@ -33,7 +33,10 @@
     }
 
     #nav-left {
-        display: none;
+        /* display: none; */
+        position: fixed;
+        left: 45px;
+        top: 20px;
     }
 
     #nav-right {

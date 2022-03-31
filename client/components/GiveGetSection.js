@@ -9,13 +9,13 @@ const GiveGetSection = () => {
 
 				<div id="give-get-choice-section-content">
 					<div id="give-get-right">
-						<Link href="/giversignup">
-							<a href="/giversignup">
+						<Link href="/gettersignup">
+							<a href="/gettersignup">
 								<div>
 									<img src="/images/give-mini.png" alt="" />
 								</div>
-								<a href="#" className="give-get-btn give">
-									GIVE
+								<a href="#" className="give-get-btn get">
+									GET
 								</a>
 								<p className="give-get-choice-p">
 									מתלבט/ת לגבי לימודים או תואר והיית רוצה לקבל
@@ -30,17 +30,16 @@ const GiveGetSection = () => {
 					</div>
 
 					<div id="give-get-left">
-						<Link href="/gettersignup">
-							<a href="/gettersignup">
+						<Link href="/giversignup">
+							<a href="/giversignup#">
 								<div>
 									<img src="/images/get-mini.png" alt="" />
 								</div>
 								<a href="#" className="give-get-btn">
-									GET
+									GIVE
 								</a>
 								<p className="give-get-choice-p">
-									מתלבט/ת לגבי לימודים או תואר והיית רוצה לקבל
-									ידע מאדם מתאים?
+									בוגר תואר? בוגר קורס? יועץ לימודים/קריירה? היכנס לחלוק את הידע שלך עם אחרים
 								</p>
 							</a>
 						</Link>
