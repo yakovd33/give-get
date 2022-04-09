@@ -9,9 +9,9 @@ const pool = new Pool({
     // ssl: process.env.NODE_ENV == 'development' ? false : {
     //     rejectUnauthorized: true
     // }
-    // ssl: {
-    //     rejectUnauthorized: true
-    // }
+    ssl: {
+        rejectUnauthorized: true
+    }
 });
 
 module.exports = pool;
