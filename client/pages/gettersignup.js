@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import SignupHero from "../components/SignupHero";
 import ApiHelper from '../helpers/ApiHelper';
+import Select from 'react-select';
+import { fields } from '../constants/fields';
 
 const GetterSignup = () => {
     const needs = [
@@ -13,13 +15,6 @@ const GetterSignup = () => {
         'בחירת תואר',
         'בחירת קורס',
         'בחירת מקום עבודה'
-    ]
-
-    const fields = [
-        'הנדסת חשמל',
-        'הנדסת תוכנה',
-        'רפואה',
-        'משפטים',
     ]
 
     const [ need, setNeeds ] = useState(
@@ -36,6 +31,8 @@ const GetterSignup = () => {
     const [ password, setPassword ] = useState('');
     const [ rePass, setRePass ] = useState('');
     const [ feedback, setFeedback ] = useState('');
+    const [ wouldLikeToShare, setWouldLikeToShare ] = useState(false);
+    const [ selectedFields, setSelectedFields ] = useState([]);
 
     const handleOnChangeNeeds = (position) => {
         const updatedCheckedState = need.map((item, index) =>
@@ -64,10 +61,21 @@ const GetterSignup = () => {
         }
 
         let final_needs = JSON.stringify(selected_needs);
+        let finalSelectedFields = JSON.stringify(selectedFields);
 
-        ApiHelper.post('users/', { fullname, email, phone, password, type: 'getter', needs: final_needs, purpose, field }, (res) => {
+        ApiHelper.post('users/', { fullname, email, phone, password, type: 'getter', needs: final_needs, purpose, fields: finalSelectedFields, wouldLikeToShare }, (res) => {
             setFeedback(res.msg);
         })
+    }
+
+    const handleFieldSelect = (values) => {
+        let finalFields = [];
+
+        values.map((item) => {
+            finalFields.push(item.value);
+        })
+
+        setSelectedFields(finalFields)
     }
 
     return (
@@ -80,7 +88,7 @@ const GetterSignup = () => {
 						שלום <span>Getter</span> השב/י על מספר שאלות:
 					</div>
 
-                    <div className="signup-form-question">
+                    {/* <div className="signup-form-question">
                         <div className="question-text">
                             מהו התחום המקצועי שהיית רוצה לקבל עליו ידע מאחרים?
                         </div>
@@ -95,6 +103,15 @@ const GetterSignup = () => {
                                     { name }
                                 </label>
 							))}
+                        </div>
+                    </div> */}
+                    <div className="signup-form-question">
+                        <div className="question-text">
+                        מהו התחום המקצועי שהיית רוצה לחלוק אותו עם מאחרים?
+                        </div>
+
+                        <div className="question-options">
+                            <Select options={fields} placeholder="בחר/י מקצועות עליהם תרצה/י לקבל ייעוץ" isMulti={ true } onChange={ handleFieldSelect } />
                         </div>
                     </div>
 
@@ -119,7 +136,7 @@ const GetterSignup = () => {
                         </div>
                     </div>
 
-                    <div className="signup-form-question">
+                    {/* <div className="signup-form-question">
                         <div className="question-text">
                             מהו תחום העניין שהיית רוצה לקבל בו ידע ממומחה?
                         </div>
@@ -135,7 +152,7 @@ const GetterSignup = () => {
                                 )) }
                             </select>
                         </div>
-                    </div>
+                    </div> */}
 
                     <div id="giver-signup-details">
 						<div className="getter-signup-row">
@@ -175,8 +192,8 @@ const GetterSignup = () => {
 									לשתף בו אחרים?
 								</div>
 								<div className="answer">
-									<button>כן</button>
-									<button>לא</button>
+									<button onClick={ () => setWouldLikeToShare(true) } className={ `${ wouldLikeToShare ? 'button-chosen' : '' }` }>כן</button>
+									<button onClick={ () => setWouldLikeToShare(false) } className={ `${ !wouldLikeToShare ? 'button-chosen' : '' }` }>לא</button>
 								</div>
 							</div>
 						</div>

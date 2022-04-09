@@ -3,6 +3,7 @@ const router = express.Router();
 const pool = require("../db");
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
+const { verifyAdmin } = require("../middleware/auth");
 
 // Signup
 router.post("/", async (req, res, next) => {
@@ -43,11 +44,11 @@ router.post("/", async (req, res, next) => {
 													docs.rows[0].id;
 												// Add to getters/givers table
 												if (type == "giver") {
-													console.log("giver");
-													let needs = req.body.needs;
+													// let needs = req.body.needs;
+													let needs = '';
 													let status =
 														req.body.status;
-													let field = req.body.field;
+													let fields = req.body.fields;
 													let age = req.body.age;
 													let experience =
 														req.body.experience;
@@ -59,9 +60,8 @@ router.post("/", async (req, res, next) => {
 														req.body.statusAnswer;
 
 													if (
-														needs &&
 														status &&
-														field &&
+														fields &&
 														age &&
 														experience &&
 														hobbies &&
@@ -69,7 +69,7 @@ router.post("/", async (req, res, next) => {
 													) {
 														await pool
 															.query(
-																"INSERT INTO givers (user_id, age, experience, hobbies, questions, needs, status, field, status_answer) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+																"INSERT INTO givers (user_id, age, experience, hobbies, questions, needs, status, fields, status_answer) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
 																[
 																	lastInsertId,
 																	age,
@@ -78,7 +78,7 @@ router.post("/", async (req, res, next) => {
 																	questions,
 																	needs,
 																	status,
-																	field,
+																	fields,
 																	statusAnswer,
 																]
 															)
@@ -100,25 +100,26 @@ router.post("/", async (req, res, next) => {
 														);
 													}
 												} else if (type == "getter") {
-													let needs = req.body.needs;
-													let purpose =
-														req.body.purpose;
-													let field = req.body.field;
+													// let needs = req.body.needs;
+													let needs = '';
+													let purpose = req.body.purpose;
+													let fields = req.body.fields;
+													let wouldLikeToShare = req.body.wouldLikeToShare;
 
 													// if (needs && purpose && field && needs.length && purpose.length && field.length) {
 													if (
-														needs &&
 														purpose &&
-														field
+														fields
 													) {
 														await pool
 															.query(
-																"INSERT INTO getters (user_id, need, purpose, field) VALUES ($1, $2, $3, $4)",
+																"INSERT INTO getters (user_id, need, purpose, fields, would_like_to_share) VALUES ($1, $2, $3, $4, $5)",
 																[
 																	lastInsertId,
 																	needs,
 																	purpose,
-																	field,
+																	fields,
+																	wouldLikeToShare
 																]
 															)
 															.then((docs) => {
@@ -189,7 +190,7 @@ router.post("/login/", async (req, res, next) => {
 				const user = emailRow.rows[0];
 
 				const token = jwt.sign(
-					{ user_id: user.id, email },
+					{ user_id: user.id, email, isAdmin: user.isAdmin},
 					process.env.TOKEN_KEY,
 					{ expiresIn: "999999h" }
 				);
@@ -303,6 +304,78 @@ router.get("/get_givers_by_status/:status/:option", async (req, res, next) => {
 	}
 
 	res.status(200).json(givers);
+});
+
+router.get("/get_givers_by_fields/:fields", async (req, res, next) => {
+	let fields = req.params.fields;
+	let fieldsSeparated = fields.split(',');
+	let finalLikeQuery = `fields LIKE 'eeee' OR `;
+
+	console.log(fieldsSeparated);
+
+	fieldsSeparated.forEach(field => {
+		if (field) {
+			finalLikeQuery += `fields LIKE '%${ field }%' OR `;
+		}
+	});
+
+	finalLikeQuery += 'FALSE';
+
+	let givers = [];
+
+	if (fields) {
+		try {
+			console.log(`SELECT * FROM givers WHERE TRUE AND (${ finalLikeQuery })`);
+
+			let givers_query = await pool.query(
+				`SELECT * FROM givers WHERE TRUE AND (${ finalLikeQuery })`,
+			);
+
+
+			if (givers_query.rows) {
+				for (var i = 0; i < givers_query.rows.length; i++) {
+					let giver = givers_query.rows[i];
+					let giver_user_query = await pool.query(
+						`SELECT * FROM users WHERE id = ${giver.user_id}`
+					);
+
+					// Check if user exists
+					if (giver_user_query.rows && giver_user_query.rows.length) {
+						let giver_user = giver_user_query.rows[0];
+						givers.push({
+							id: giver_user.id,
+							name: giver_user.fullname,
+							description: `${giver.status} - ${giver.status_answer}`,
+						});
+					}
+				}
+			}
+		} catch (e) {
+			console.log(e);
+		}
+	}
+
+	res.status(200).json(givers);
+});
+
+// Get all users for admin
+router.get("/:page", verifyAdmin, async (req, res, next) => {
+	let page = req.params.page;
+	let finalUsers = [];
+
+	let allUsersQuery = await pool.query("SELECT * FROM users");
+	let usersQuery = await pool.query(`SELECT * FROM users LIMIT 5 OFFSET ${ 5 * page }`);
+
+	usersQuery.rows.map((userItem) => {
+		let { pass_hashed, ...others } = userItem;
+
+		finalUsers.push(others);
+	})
+
+	res.json({
+		users: finalUsers,
+		usersCount: allUsersQuery.rows.length
+	});
 });
 
 module.exports = router;

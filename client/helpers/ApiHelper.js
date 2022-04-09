@@ -15,7 +15,7 @@ export default class ApiHelper {
 
         axios.get(API_URL + url, { headers: headers }).then((response) => {
             callback(response.data);
-        }).catch((error) => {  })
+        }).catch((error) => { console.log(error) })
     }
 
     
@@ -43,7 +43,7 @@ export default class ApiHelper {
         
         axios.post(API_URL + url, params, { headers: headers }).then((response) => {
             callback(response.data);
-        }).catch((error) => {  })
+        }).catch((error) => { console.log(error) })
     }
 
     static delete (url, callback) {

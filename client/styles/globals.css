@@ -20,6 +20,35 @@ body {
 	padding-top: 70px;
 }
 
+.table {
+	width: 100%;
+	border: 1px solid #EEEEEE;
+}
+  
+.table th {
+	display: flex;
+	width: 100%;
+	background: #000;
+	padding: 18px 0;
+	color: #fff;
+	justify-content: center;
+}
+  
+.table tr {
+	display: flex;
+	width: 100%;
+	padding: 18px 0;
+}
+
+.table tr:nth-of-type(odd) {
+	background: #EEEEEE;
+}
+  
+.table td, .table th {
+	flex: 1 1 20%;
+	text-align: center;
+}
+
 /* Scrollbar */
 :root {
 	--scroll-bar-size: 10px;
@@ -62,6 +91,10 @@ body {
 	display: flex;
 }
 
+.container-inner {
+	width: 100%;
+}
+
 a {
 	text-decoration: none;
 	color: #121212;
@@ -75,6 +108,36 @@ a {
 	color: #fff;
 	font-weight: 500;
 	cursor: pointer;
+}
+
+button {
+	cursor: pointer;
+	user-select: none;
+}
+
+.button-chosen {
+	border: 1px solid #444 !important;
+}
+
+.pagination {
+	margin-top: 15px;
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: center;
+}
+
+.pagination button {
+	padding: 10px 14px;
+	background-color: #ebebeb;
+	border-radius: 100%;
+	color: #121212;
+	border: none;
+	margin-left: 5px;
+}
+
+.pagination button.active {
+	background-color: rgba(127, 201, 41, 0.76);
+	color: #fff
 }
 
 /* Header */
@@ -116,8 +179,8 @@ a {
 }
 
 .nav-link {
-	margin-left: 8px;
-	font-size: 1.1rem;
+	margin-left: 20px;
+	font-size: 1.2rem;
 }
 
 .nav-link.active {
@@ -125,7 +188,7 @@ a {
 }
 
 #nav-logo {
-	font-size: 1.3rem;
+	font-size: 1.4rem;
 	font-weight: bold;
 	margin-left: 50px;
 }
@@ -994,4 +1057,40 @@ footer a {
 #set-meeting-feedback {
     font-weight: bold;
     margin-bottom: 10px;
+}
+
+/* Admin panel */
+#tab-triggers {
+	margin-top: 20px;
+}
+
+.tab-trigger {
+	padding: 8px 15px;
+	border-radius: 30px;
+	border: none;
+	font-size: 1rem;
+	margin-left: 10px;
+}
+
+.tab-trigger.active {
+	background-color: rgba(127, 201, 41, 0.76);
+	color: #fff;
+}
+
+#admin-tab-content {
+	width: 100%;
+	margin-top: 15px;
+}
+
+.table .type-badge span {
+	padding: 4px 8px;
+	border-radius: 3px;
+	font-size: 0.8rem;
+	background-color: #9ed666;
+	display: inline-block;
+	color: #fff;
+}
+
+.table .type-badge.giver span {
+	background-color: #28b3d8;
 }

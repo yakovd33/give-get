@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import SignupHero from "../components/SignupHero";
 import ApiHelper from '../helpers/ApiHelper';
+import Select from 'react-select';
+import { fields } from '../constants/fields';
 
 const GiverSignup = () => {
 	const needs = [
@@ -17,6 +19,7 @@ const GiverSignup = () => {
         'עובד בתחום',
         'יועץ קריירה',
         'יועץ לימודים',
+        'אחר'
     ];
 
     const status_questions = {
@@ -25,15 +28,9 @@ const GiverSignup = () => {
         'סטודנט': 'סטודנט לאיזה תואר?',
         'עובד בתחום': 'באיזה תחום אתה עובד?',
         'יועץ קריירה': null,
-        'יועץ לימודים': null
+        'יועץ לימודים': null,
+        'אחר': 'פרט/י',
     };
-
-	const fields = [
-        'הנדסת חשמל',
-        'הנדסת תוכנה',
-        'רפואה',
-        'משפטים',
-    ];
 
 	const [ need, setNeeds ] = useState(
 		new Array(needs.length).fill(false)
@@ -54,6 +51,7 @@ const GiverSignup = () => {
     const [ password, setPassword ] = useState('');
     const [ rePass, setRePass ] = useState('');
     const [ feedback, setFeedback ] = useState('');
+    const [ selectedFields, setSelectedFields ] = useState([]);
 
 	const handleOnChangeNeeds = (position) => {
         const updatedCheckedState = need.map((item, index) =>
@@ -75,11 +73,22 @@ const GiverSignup = () => {
         }
 
         let final_needs = JSON.stringify(selected_needs);
+        let finalSelectedFields = JSON.stringify(selectedFields);
 
-        ApiHelper.post('users/', { fullname, email, phone, password, type: 'giver', needs: final_needs, status, field, hobbies, questions, experience, age, statusAnswer }, (res) => {
+        ApiHelper.post('users/', { fullname, email, phone, password, type: 'giver', needs: final_needs, status, fields: finalSelectedFields, hobbies, questions, experience, age, statusAnswer }, (res) => {
             setFeedback(res.msg);
 			console.log(res);
         })
+    }
+
+    const handleFieldSelect = (values) => {
+        let finalFields = [];
+
+        values.map((item) => {
+            finalFields.push(item.value);
+        })
+
+        setSelectedFields(finalFields)
     }
 
 	return (
@@ -92,7 +101,7 @@ const GiverSignup = () => {
                         שלום <span>Giver</span> השב/י על מספר שאלות:
                     </div>
 
-					<div className="signup-form-question">
+					{/* <div className="signup-form-question">
 						<div className="question-text">
 							מהו התחום המקצועי שהיית רוצה לחלוק את הידע שלך בו עם אחרים? 
 						</div>
@@ -108,6 +117,16 @@ const GiverSignup = () => {
                                     { name }
                                 </label>
 							))}
+						</div>
+					</div> */}
+
+<div className="signup-form-question">
+						<div className="question-text">
+							מהו תחום העניין שהיית רוצה לקבל בו ידע ממומחה?
+						</div>
+
+						<div>
+                            <Select options={fields} placeholder="בחר/י מקצועות עליהם תרצה/י להעניק ייעוץ" isMulti={ true } onChange={ handleFieldSelect } />
 						</div>
 					</div>
 
@@ -137,24 +156,6 @@ const GiverSignup = () => {
                             </div>
                         </div>
                     ) }
-
-					<div className="signup-form-question">
-						<div className="question-text">
-							מהו תחום העניין שהיית רוצה לקבל בו ידע ממומחה?
-						</div>
-
-						<div>
-							<select name="" id="" onChange={ (e) => setField(e.target.value) }>
-                                <option value="">
-                                    בחר/י תחום שמעניין אותך
-                                </option>
-
-                                { fields.map((name) => (
-                                    <option value={ name }>{ name }</option>
-                                )) }
-                            </select>
-						</div>
-					</div>
 
 					<div id="giver-signup-details">
                         <div className="getter-signup-row">

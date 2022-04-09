@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import FilterItem from "../components/FilterItem";
 import ProItem from "../components/ProItem";
 import ApiHelper from '../helpers/ApiHelper';
+import { fields } from '../constants/fields';
+import Select from 'react-select';
 
 const statuses = [
 	'בוגר תואר',
@@ -12,9 +14,10 @@ const statuses = [
 	'יועץ לימודים',
 ];
 
+console.log(fields);
+
 const Filter = () => {
-    const [ statusSelected, setStatusSelected ] = useState(null);
-    const [ optionSelected, setOptionSelected ] = useState(null);
+    const [ selectedFields, setSelectedFields ] = useState([]);
 
     const [ pros, setPros ] = useState([
         {
@@ -28,47 +31,26 @@ const Filter = () => {
         }
     ]);
 
-    const [ statusesOptions, setStatusesOptions ] = useState([]);
-
-    const handleChange = (e, status) => {
-        setOptionSelected(e.target.value);
-        setStatusSelected(status);
-    }
-
     // Load statuses options
-    useEffect(() => {
-        ApiHelper.get('users/get_status_options', (options) => {
-            setStatusesOptions(options);
-        });
-    }, []);
+   useEffect(() => {
+       let finalArrayString = '';
 
-    // Get givers list
-    useEffect(() => {
-        ApiHelper.get(`users/get_givers_by_status/${ statusSelected }/${ optionSelected }`, (givers) => {
-            setPros(givers);
-            console.log(givers)
-        })
-        console.log('Status: ' + statusSelected + ' option: ' + optionSelected)
-    }, [ statusSelected, optionSelected ])
+       selectedFields.map((fieldItem) => {
+           finalArrayString += `${ fieldItem.value }, `;
+       })
+
+       ApiHelper.get(`users/get_givers_by_fields/${ finalArrayString }`, (res) => {
+           setPros(res)
+       })
+   }, [ selectedFields ])
 
     return ( 
         <div className="container">
             <div id="filter-wrap">
                 <h3 id="filter-title">שלום <span>Getter</span>, אנא בחר את האפשרות שהכי מתאימה לך</h3>
 
-                <div id="filter-items">
-                    { statuses.map((status) => (
-                        <div className="filter-item">
-                            <div className="img"><img src="/images/filters/1.png" alt="" /></div>
-                            <div className="title">{ status }</div>
-                            <div className="options">
-                                <select name="" id="" onChange={ (e) => handleChange(e, status) }>
-                                    <option value="">הכל</option>
-                                    { statusesOptions[status] && statusesOptions[status].map((option) => <option value={ option }>{ option }</option>) }
-                                </select>
-                            </div>
-                        </div>
-                    )) }
+                <div id="field-filters">
+                    <Select options={fields} placeholder="בחר/י מקצועות עליהם תרצה/י לקבל מידע" isMulti={ true } onChange={ (fields) => setSelectedFields(fields) } />
                 </div>
 
                 <h3 id="pros-list-title">רשימת מומחים:</h3>

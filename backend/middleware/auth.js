@@ -16,4 +16,20 @@ const verifyToken = (req, res, next) => {
 	return next();
 };
 
-module.exports = verifyToken;
+const verifyAdmin = (req, res, next) => {
+	verifyToken(req, res, () => {
+		if (req.headers.uid) {
+			let userId = req.headers.uid;
+
+			if (req.user.user_id == userId && req.user.isAdmin) {
+				next();
+			} else {
+				res.status(403).send("You're not authorized to do that.")
+			}
+		} else {
+			return res.status(401).send('No uid found');
+		}
+	});
+};
+
+module.exports = { verifyToken, verifyAdmin };
