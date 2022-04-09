@@ -6,7 +6,10 @@ const pool = new Pool({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     database: process.env.DB_NAME,
-    ssl: process.env.NODE_ENV == 'development' ? false : {
+    // ssl: process.env.NODE_ENV == 'development' ? false : {
+    //     rejectUnauthorized: true
+    // }
+    ssl: {
         rejectUnauthorized: true
     }
 });
