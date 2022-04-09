@@ -311,19 +311,17 @@ router.get("/get_givers_by_fields/:fields", async (req, res, next) => {
 	let fieldsSeparated = fields.split(',');
 	let finalLikeQuery = `fields LIKE 'eeee' OR `;
 
-	console.log(fieldsSeparated);
-
-	fieldsSeparated.forEach(field => {
-		if (field) {
-			finalLikeQuery += `fields LIKE '%${ field }%' OR `;
-		}
-	});
-
-	finalLikeQuery += 'FALSE';
-
 	let givers = [];
 
 	if (fields) {
+		fieldsSeparated.forEach(field => {
+			if (field) {
+				finalLikeQuery += `fields LIKE '%${ field }%' OR `;
+			}
+		});
+
+		finalLikeQuery += 'FALSE';
+
 		try {
 			console.log(`SELECT * FROM givers WHERE TRUE AND (${ finalLikeQuery })`);
 
@@ -359,7 +357,7 @@ router.get("/get_givers_by_fields/:fields", async (req, res, next) => {
 });
 
 // Get all users for admin
-router.get("/:page", verifyAdmin, async (req, res, next) => {
+router.get("all/:page", verifyAdmin, async (req, res, next) => {
 	let page = req.params.page;
 	let finalUsers = [];
 
