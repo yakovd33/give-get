@@ -7,7 +7,7 @@ import Calendar from '../../components/Calendar';
 import { FiSend } from 'react-icons/fi';
 import ApiHelper from '../../helpers/ApiHelper';
 
-const meet = () => {
+const Meet = () => {
     const router = useRouter();
     const { id } = router.query;
     const [ user, setUser ] = useState(AuthHelper.getUser() );
@@ -130,4 +130,4 @@ const meet = () => {
     )
 }
 
-export default meet
+export default Meet

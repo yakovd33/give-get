@@ -10,18 +10,18 @@ const GiveGetSection = () => {
 				<div id="give-get-choice-section-content">
 					<div id="give-get-right">
 						<Link href="/gettersignup">
-							<a href="/gettersignup">
+							<div>
 								<div>
 									<img src="/images/give-mini.png" alt="" />
 								</div>
-								<a href="#" className="give-get-btn get">
+								<span className="give-get-btn get">
 									GET
-								</a>
+								</span>
 								<p className="give-get-choice-p">
 									מתלבט/ת לגבי לימודים או תואר והיית רוצה לקבל
 									ידע מאדם מתאים?
 								</p>
-							</a>
+							</div>
 						</Link>
 					</div>
 
@@ -31,17 +31,17 @@ const GiveGetSection = () => {
 
 					<div id="give-get-left">
 						<Link href="/giversignup">
-							<a href="/giversignup#">
+							<div>
 								<div>
 									<img src="/images/get-mini.png" alt="" />
 								</div>
-								<a href="#" className="give-get-btn">
+								<span className="give-get-btn">
 									GIVE
-								</a>
+								</span>
 								<p className="give-get-choice-p">
 									בוגר תואר? בוגר קורס? יועץ לימודים/קריירה? היכנס לחלוק את הידע שלך עם אחרים
 								</p>
-							</a>
+							</div>
 						</Link>
 					</div>
 				</div>

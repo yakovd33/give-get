@@ -181,6 +181,7 @@ button {
 .nav-link {
 	margin-left: 20px;
 	font-size: 1.2rem;
+	cursor: pointer;
 }
 
 .nav-link.active {
@@ -305,8 +306,12 @@ footer a {
 	justify-content: center;
 }
 
-#give-get-right > a > div > img,
-#give-get-left > a > div > img {
+#give-get-left, #give-get-right {
+	cursor: pointer;
+}
+
+#give-get-right > div > div > img,
+#give-get-left > div > div > img {
 	height: 130px;
 }
 

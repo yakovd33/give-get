@@ -59,7 +59,7 @@ const Login = () => {
 				<div id="not-registered-msg">
 					לא רשומים?{" "}
 					<Link href="/signup">
-						<a href="/">הרשמה</a>
+						הרשמה;
 					</Link>
 				</div>
 			</form>

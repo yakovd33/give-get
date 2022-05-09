@@ -23,9 +23,9 @@ const Calendar = ({ date, setDate }) => {
 						<div>ש</div>
 					</div>
 
-					<div class="giz-calendar-day">
+					<div className="giz-calendar-day">
 						{[...Array(31)].map((_, index) => (
-							<div><button class={ `${ index + 1 == date ? 'active' : ''}` } onClick={ (e) => { e.preventDefault(); setDate(index + 1) } }><span class="giz-calendar-day-count">{ index + 1 }</span></button></div>
+							<div><button className={ `${ index + 1 == date ? 'active' : ''}` } onClick={ (e) => { e.preventDefault(); setDate(index + 1) } }><span className="giz-calendar-day-count">{ index + 1 }</span></button></div>
 						))}
           			</div>
 				</div>

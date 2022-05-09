@@ -17,21 +17,19 @@ const Header = () => {
                             <div id="nav-right">
                                 <div id="nav-logo">
                                     <Link href="/">
-                                    <a href="/">
                                     GIVE&GET
-                                    </a>
                                     </Link>
                                 </div>
 
                                 <div id="nav-links">
-                                    <Link href="#"><a href="#" className="nav-link active">ראשי</a></Link>
-                                    <Link href="#"><a href="#" className="nav-link">אודות</a></Link>
-                                    <Link href="#"><a href="#" className="nav-link">הפורום</a></Link>
-                                    <Link href="#"><a href="#" className="nav-link">סיפורי הצלחה</a></Link>
-                                    <Link href="#"><a href="#" className="nav-link">תקנון</a></Link>
+                                    <Link href="#"><span className="nav-link active">ראשי</span></Link>
+                                    <Link href="#"><span className="nav-link">אודות</span></Link>
+                                    <Link href="#"><span className="nav-link">הפורום</span></Link>
+                                    <Link href="#"><span className="nav-link">סיפורי הצלחה</span></Link>
+                                    <Link href="#"><span className="nav-link">תקנון</span></Link>
 
                                     { AuthHelper.isLogged() && AuthHelper.getUser().isAdmin &&
-                                        <Link href="/admin"><a href="/admin" className="nav-link">פאנל ניהול</a></Link>
+                                        <Link href="/admin"><span className="nav-link">פאנל ניהול</span></Link>
                                     }
                                 </div>
 
@@ -50,10 +48,10 @@ const Header = () => {
             </div>
             
             { showMobileNav && <div id="nav-links-mobile">
-                <Link href="#"><a href="#" className="nav-link active">ראשי</a></Link>
-                <Link href="#"><a href="#" className="nav-link">אודות</a></Link>
-                <Link href="#"><a href="#" className="nav-link">סיפורי הצלחה</a></Link>
-                <Link href="#"><a href="#" className="nav-link">תקנון</a></Link>
+                <Link href="#"><span className="nav-link active">ראשי</span></Link>
+                <Link href="#"><span className="nav-link">אודות</span></Link>
+                <Link href="#"><span className="nav-link">סיפורי הצלחה</span></Link>
+                <Link href="#"><span className="nav-link">תקנון</span></Link>
                 <br />
                 { AuthHelper.isLogged() && <span>
                     { !AuthHelper.isLogged() && <NotLoggedAuthButtons/>  }

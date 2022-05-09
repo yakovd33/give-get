@@ -357,7 +357,7 @@ router.get("/get_givers_by_fields/:fields", async (req, res, next) => {
 });
 
 // Get all users for admin
-router.get("all/:page", verifyAdmin, async (req, res, next) => {
+router.get("/all/:page", verifyAdmin, async (req, res, next) => {
 	let page = req.params.page;
 	let finalUsers = [];
 

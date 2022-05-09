@@ -8,7 +8,7 @@ const tabs = [
 	{ name: 'meetings', label: 'פגישות' }
 ]
 
-const admin = () => {
+const Admin = () => {
 	const [ tab, setTab ] = useState('users');
 
 	return (
@@ -24,4 +24,4 @@ const admin = () => {
 	)
 }
 
-export default admin
+export default Admin

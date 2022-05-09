@@ -8,8 +8,7 @@ const Users = ({ tab, setTab }) => {
 
     useEffect(() => {
         if (tab === 'users') {
-            ApiHelper.get(`users/${ page }`, (res) => {
-                console.log('wewewewewe');
+            ApiHelper.get(`users/all/${ page }`, (res) => {
                 setUsers(res.users);
                 setUsersCount(res.usersCount);
             })
