@@ -1099,3 +1099,7 @@ footer a {
 .table .type-badge.giver span {
 	background-color: #28b3d8;
 }
+
+.last-seen-para {
+	color: #555;
+}

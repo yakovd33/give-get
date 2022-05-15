@@ -28,6 +28,10 @@ const Header = () => {
                                     <Link href="#"><span className="nav-link">סיפורי הצלחה</span></Link>
                                     <Link href="#"><span className="nav-link">תקנון</span></Link>
 
+                                    { AuthHelper.isLogged()  &&
+                                        <Link href="/profile"><span className="nav-link">הפרופיל שלי({ AuthHelper.getUser().fullname })</span></Link>
+                                    }
+
                                     { AuthHelper.isLogged() && AuthHelper.getUser().isAdmin &&
                                         <Link href="/admin"><span className="nav-link">פאנל ניהול</span></Link>
                                     }
@@ -52,6 +56,11 @@ const Header = () => {
                 <Link href="#"><span className="nav-link">אודות</span></Link>
                 <Link href="#"><span className="nav-link">סיפורי הצלחה</span></Link>
                 <Link href="#"><span className="nav-link">תקנון</span></Link>
+
+                { AuthHelper.isLogged()  &&
+                    <Link href="/profile"><span className="nav-link">הפרופיל שלי({ AuthHelper.getUser().fullname })</span></Link>
+                }
+
                 <br />
                 { AuthHelper.isLogged() && <span>
                     { !AuthHelper.isLogged() && <NotLoggedAuthButtons/>  }

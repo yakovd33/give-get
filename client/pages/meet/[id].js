@@ -6,6 +6,8 @@ import UsersHelper from '../../helpers/UsersHelper';
 import Calendar from '../../components/Calendar';
 import { FiSend } from 'react-icons/fi';
 import ApiHelper from '../../helpers/ApiHelper';
+import DateHelper from '../../helpers/DateHelper';
+import moment from 'moment';
 
 const Meet = () => {
     const router = useRouter();
@@ -100,11 +102,6 @@ const Meet = () => {
                 </div>
 
                 <div id="meeting-left">
-                    { user && <h2 id="meeting-title">קביעת פגישה עם - { user.fullname }</h2> }
-                    { !meeting && <span id="no-meetings-msg">לא נקבעה פגישה.</span> }
-                    { meeting && <span id="meeting-textual">נקבעה פגישה בתאריך { meeting.date } בשעה { meeting.time.substring(0, 5) }</span> }
-
-                    <br/><br/>
                     <div className="pro-item">
                         <div className="pro-item-right">
                             <div className="giver-img">
@@ -113,16 +110,16 @@ const Meet = () => {
                         </div>
 
                         <div className="pro-item-middle">
-                            <div className="name">{ user && user.fullname }</div>
-                            <div className="description">{  }</div>
+                            <div className="name">{ meetUser && meetUser.fullname }</div>
+                            { meetUser && meetUser.last_seen && <p className="last-seen-para">נראה לאחרונה לפני { DateHelper.timeSince(moment(meetUser.last_seen).valueOf()) }</p> }
+                            <br/>
+                            <button className="cute-btn" onClick={ handleSendMessage }>שלח הודעה <FiSend/></button>
                         </div>
                     </div>
 
-                    <div>
-                        <br/>
-                        <button className="cute-btn" onClick={ handleSendMessage }>שלח הודעה <FiSend/></button>
-                    </div>
-
+                    { meetUser && <h2 id="meeting-title">קביעת פגישה עם - { meetUser.fullname }</h2> }
+                    { !meeting && <span id="no-meetings-msg">לא נקבעה פגישה.</span> }
+                    { meeting && <span id="meeting-textual">נקבעה פגישה בתאריך { meeting.date } בשעה { meeting.time.substring(0, 5) }</span> }
                 </div>
             </div>
 
