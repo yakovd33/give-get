@@ -21,7 +21,7 @@ const NewMessage = ({ chatBox }) => {
             chatStore.dispatch(addMessage(messageInput, chatBox.user_id));
 
             // Send message to socket of other user
-            ChatSocketHelper.sendMessage(chatStore.getState().socket, chatBox.user_id, messageInput, AuthHelper.getUserId(), AuthHelper.getUser().fullname);
+            ChatSocketHelper.sendMessage(chatStore.getState().socket, chatBox.user_id, messageInput, AuthHelper.getUserId(), AuthHelper.getUser().fullname, AuthHelper.getAccessToken());
         }
 	}
 

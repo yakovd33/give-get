@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ChatHelper from '../../helpers/ChatHelper';
+import UsersHelper from '../../helpers/UsersHelper';
 
 const ConnectedUser = ({ id, fullname, last_message }) => {
+    const [ profilePic, setProfilePic ] = useState(null);
+
+    useEffect(() => {
+        UsersHelper.getUserById(id, (user) => {
+            setProfilePic(UsersHelper.getUserProfilePicture(user))
+        })
+    }, [])
+    
     const handleClick = () => {
         ChatHelper.openChatbox(id, fullname);
     }
@@ -10,7 +19,7 @@ const ConnectedUser = ({ id, fullname, last_message }) => {
         <div className="item chatbox-trigger" onClick={ handleClick }>
             <div className="pic">
                 <img
-                    src="http://localhost/AlphaDate/uploads/profile-pics/776b33b2fdbe47e64481d78d1c13d2b1d427dbd4ae56937615a6605d4303b497.jpg"
+                    src={ profilePic }
                     alt=""
                 />
             </div>

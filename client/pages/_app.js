@@ -12,6 +12,13 @@ const io = require("socket.io-client");
 function MyApp({ Component, pageProps }) {
 	const [ socket, setSock ] = useState(null);
 
+	const updateLastSeen = () => {
+		socket.emit('seen', {
+			user_id: AuthHelper.getUserId(),
+			token: AuthHelper.getAccessToken()
+		});
+	}
+
 	useEffect(() => {
 		if (AuthHelper.isLogged()) {
 			if (!socket) {
@@ -29,8 +36,13 @@ function MyApp({ Component, pageProps }) {
 			if (socket) {
 				socket.on("connect", () => {
 					socket.emit('register', {
-						user_id: AuthHelper.getUserId()
-					})
+						user_id: AuthHelper.getUserId(),
+						token: AuthHelper.getAccessToken()
+					});
+
+					// Last seen update
+					updateLastSeen()
+					setInterval(updateLastSeen, 20000)
 				});
 
 				socket.on('message', (message) => {

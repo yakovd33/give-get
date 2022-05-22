@@ -1103,3 +1103,11 @@ footer a {
 .last-seen-para {
 	color: #555;
 }
+
+.profile-wrap {
+	padding: 40px 0;
+}
+
+.profile-picture-upload-trigger {
+	cursor: pointer;
+}

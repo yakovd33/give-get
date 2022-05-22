@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import UsersHelper from '../helpers/UsersHelper';
 
 const ProItem = ({ id, name, description }) => {
+    const [ profilePic, setProfilePic ] = useState(null);
+
+    useEffect(() => {
+        UsersHelper.getUserById(id, (user) => {
+            setProfilePic(UsersHelper.getUserProfilePicture(user))
+        })
+    }, [])
+
     return ( 
         <div className="pro-item">
             <div className="pro-item-right">
                 <div className="giver-img">
-                    <img src="/images/get-mini.png" alt="" />
+                    <img src={ profilePic } alt="" />
                 </div>
             </div>
 

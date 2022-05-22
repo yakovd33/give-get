@@ -32,4 +32,15 @@ const verifyAdmin = (req, res, next) => {
 	});
 };
 
-module.exports = { verifyToken, verifyAdmin };
+const verifyTokenAsParams = (token, userId) => {
+	if (token) {
+		try {
+			const decoded = jwt.verify(token, config.TOKEN_KEY);
+			return decoded;
+		} catch (err) { console.log(err) }
+	}
+
+	return false;
+}
+
+module.exports = { verifyToken, verifyAdmin, verifyTokenAsParams };

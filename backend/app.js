@@ -8,6 +8,9 @@ const logger = require("morgan");
 require("dotenv").config();
 const http = require("http");
 const socketio = require("socket.io");
+const jwt = require("jsonwebtoken");
+const { verifyTokenAsParams } = require('./middleware/auth');
+const db = require('./db');
 
 const port = process.env.PORT || 4000;
 const app = express();
@@ -24,6 +27,8 @@ io.on("connection", (socket) => {
 	socket.on("register", (user) => {
 		chatUsers[user.user_id.toString()] = socket;
 
+		// TODO: Validate access token
+
 		// let found = false;
 		// for (var i = 0; i < chatUsers.length; i++) {
 		// //   if (chatUsers[i])
@@ -31,7 +36,9 @@ io.on("connection", (socket) => {
 		// }
 	});
 
-	socket.on("message", ({ user_id, message, from_id, fullname }) => {
+	socket.on("message", ({ user_id, message, from_id, fullname, token }) => {
+		// TODO: Validate access token
+
 		if (chatUsers[user_id.toString()]) {
 			chatUsers[user_id.toString()].emit("message", {
 				from_id: from_id,
@@ -40,6 +47,14 @@ io.on("connection", (socket) => {
 			});
 		}
 	});
+
+	socket.on("seen", ({ user_id, token }) => {
+		let user = verifyTokenAsParams(token);
+
+		if (user) {
+			db.query(`SET TIMEZONE='Asia/Jerusalem'; UPDATE users SET last_seen = NOW() WHERE id = ${ user.user_id }`);
+		}
+	})
 });
 
 server.listen(port);

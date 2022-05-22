@@ -23,6 +23,6 @@ export default class AuthHelper {
     }
 
     static getUserId () {
-        return this.getUser().id;
+        return this?.getUser()?.id;
     }
 }

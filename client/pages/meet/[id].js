@@ -105,7 +105,7 @@ const Meet = () => {
                     <div className="pro-item">
                         <div className="pro-item-right">
                             <div className="giver-img">
-                                <img src="/images/get-mini.png" alt="" />
+                                <img src={ UsersHelper.getUserProfilePicture(meetUser) } alt="" />
                             </div>
                         </div>
 

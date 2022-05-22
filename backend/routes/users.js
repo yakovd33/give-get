@@ -3,15 +3,17 @@ const router = express.Router();
 const pool = require("../db");
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
-const { verifyAdmin } = require("../middleware/auth");
+const { verifyAdmin, verifyToken } = require("../middleware/auth");
 
 // Signup
 router.post("/", async (req, res, next) => {
-	let fullname = req.body.fullname;
-	let email = req.body.email;
-	let phone = req.body.phone;
-	let password = req.body.password;
-	let type = req.body.type;
+	let { fullname, email, phone, password, type } = req.body;
+
+	let profile_pic = '/images/get-mini.png';
+
+	if (type == 'giver') {
+		profile_pic = '/images/give-mini.png';
+	}
 
 	if (fullname && email && phone && password && type) {
 		try {
@@ -29,13 +31,14 @@ router.post("/", async (req, res, next) => {
 									// Add to users table
 									await pool
 										.query(
-											"INSERT INTO users (fullname, email, phone, pass_hashed, type) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+											"INSERT INTO users (fullname, email, phone, pass_hashed, type, profile_pic_path) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
 											[
 												fullname,
 												email,
 												phone,
 												pass_hashed,
-												type
+												type,
+												profile_pic
 											]
 										)
 										.then(async (docs) => {
@@ -375,5 +378,12 @@ router.get("/all/:page", verifyAdmin, async (req, res, next) => {
 		usersCount: allUsersQuery.rows.length
 	});
 });
+
+router.post('/set_profile_pic', verifyToken, (req, res, next) => {
+	let { url } = req.body;
+	let { user_id } = req.user;
+
+	pool.query(`UPDATE users SET profile_pic_path='${ url }' WHERE id = ${ user_id }`);
+})
 
 module.exports = router;

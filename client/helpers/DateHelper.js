@@ -1,7 +1,5 @@
 export default class DateHelper {
   static timeSince(date) {
-    console.log('time');
-    console.log(date);
     var seconds = Math.floor((new Date() - date) / 1000);
   
     var interval = seconds / 31536000;
