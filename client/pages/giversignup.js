@@ -52,6 +52,7 @@ const GiverSignup = () => {
     const [ rePass, setRePass ] = useState('');
     const [ feedback, setFeedback ] = useState('');
     const [ selectedFields, setSelectedFields ] = useState([]);
+    const [ isEmailAgreed, setIsEmailAgreed ] = useState(false);
 
 	const handleOnChangeNeeds = (position) => {
         const updatedCheckedState = need.map((item, index) =>
@@ -126,7 +127,7 @@ const GiverSignup = () => {
 						</div>
 
 						<div>
-                            <Select options={fields} placeholder="בחר/י מקצועות עליהם תרצה/י להעניק ייעוץ" isMulti={ true } onChange={ handleFieldSelect } />
+                            <Select options={fields} placeholder="מהו תחום העניין שהיית רוצה לחלוק את הידע שלך בו עם אחרים?" isMulti={ true } onChange={ handleFieldSelect } />
 						</div>
 					</div>
 
@@ -235,8 +236,16 @@ const GiverSignup = () => {
 
                         { feedback && <p id="signup-feedback">{ feedback }</p> }
 
+                        <div>
+                            <label className="agree-to-email">
+                                <input type="checkbox" checked={ isEmailAgreed } onChange={ (e) => { setIsEmailAgreed(e.target.checked) } }/>
+                                מאשר/ת את הסכמתי לקבל מסרים באימייל, בSMS ובכל אמצעי שיווק שהוא
+                                (שדה חובה)
+                            </label>
+                        </div>
+
                         <div className="submit-btn-wrap">
-						    <input type="submit" value="הרשמה" />
+						    <input type="submit" value="הרשמה" disabled={ !isEmailAgreed }/>
                         </div>
                     </div>
 				</form>
